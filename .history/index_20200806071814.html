@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> COVID-19 | NIGERIA</title>
+    <link rel="icon" href="images/covid19.png" type="image/gif" sizes="32x32">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <!-- EXTERNAL CSS -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/styling.css" />
+    <!-- MAPBOX -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body style="background-color: black" onload="handwashwarning()">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="home.html">
+                <span class="desktop">
+          <img src="images/naijaflag.png" width="40" height="40"> 
+        <span class="desktop">COVID-19 Explorer</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://covid19.ncdc.gov.ng/statecontacts.php" target="_blank">NCDC State Contact Numbers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="selftestbutton" onclick="selftestcard()">Take a Self-Test</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019" target="_blank">Visit WHO</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="bg">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h5>MAP</h5>
+                    <marquee behavior="scroll" style="font-family:Arial, sans-serif; font-size: 15px;  background-color: black; color: white;" direction="left" scrollamount="5" onmouseover="this.stop()" onmouseout="this.start()">
+                        <a id="lagos">LAGOS: 130</a> |
+                        <a id="fct">FCT: 50</a> |
+                        <a id="osun">OSUN: 20</a> |
+                        <a id="edo">EDO: 11</a> |
+                        <a id="oyo">OYO: 11</a> |
+                        <a id="bauchi">BAUCHI: 6</a> |
+                        <a id="akwaibom">AWKA IBOM: 5</a> |
+                        <a id="kaduna">KADUNA: 5</a> |
+                        <a id="ogun">OGUN: 4</a> |
+                        <a id="enugu">ENUGU: 2</a> |
+                        <a id="ekiti">EKITI: 2</a> |
+                        <a id="rivers">RIVERS: 2</a> |
+                        <a id="kwara">KWARA: 2</a> |
+                        <a id="benue">BENUE: 1</a> |
+                        <a id="ondo">ONDO: 1</a> |
+                        <a id="katsina">KATSINA: 1</a> |
+
+                    </marquee>
+                    <small>Click on States to zoom in | <span id="date"></span></small>
+
+                    <div id='map'>
+                        <nav id="menu"></nav>
+                    </div>
+                    <div class='controlcontainer'>
+                        <small>Day: <label id='active-day'>41 : 7/Mar/2020</label></small>
+                        <input id='slider' class='row' type='range' min='1' max='42' step='1' value='41' />
+                    </div>
+
+                    <br>
+                </div>
+                <div class="col-sm-4">
+
+                    <hr class="d-sm-none">
+                    <h5>FEEDS</h5>
+                    <div id="feeds">
+                        <button id="feeds-button" onclick="tweetFeed()"> Twitter Feeds</button>
+                        <button id="feeds-button" onclick="newsFeed()">News Feeds</button>
+                        <!-- <button style="color:white; font-family: serif; background-color: royalblue;"><a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019" target="_blank">visit WHO</a></button>  -->
+                    </div>
+
+                    <div id="ncdctweet" style=" z-index: 0px;">
+                        <a class="twitter-timeline" data-width="320" data-height="380" data-theme="dark" href="https://twitter.com/NCDCgov?ref_src=twsrc%5Etfw"></a>
+                        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+                    </div>
+                    <div id="googlerss" style="display: none;">
+                        <iframe width="320" height="380" src="https://rss.app/embed/v1/QZx9EwdfY1EhzQ93" frameBorder="0"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <script type="text/javascript" src="scripts/script.js"></script>
+
+
+            
+                <div id="resultunclear">
+
+                    <p style="text-align: center; font-weight: bolder; margin-top: 20%;"><u>RESULT</u></p>
+                    <p style="text-align: center; font-weight: bolder;">Your risk of Covid19 according to the test is<br>
+                        <b style="font-family: Georgia; color: rgb(2, 2, 32); text-align: center; font-size: 25px;">UNCLEAR</b><br/>Please Try Again</p>
+                    <button id="yesbutt" style="background-color: rgb(231, 25, 18);" onclick="closeResult()"><b>Exit</b></button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="jumbotron text-center" style="margin-bottom:0; height: 10px; background-color: black">
+            <p style="font-size: 10px; color: white;">This Website relies upon public data from various sources, including and not limited to <b>NCDC, WHO,</b> News feeds obtained from Twitter and NewsAPI. The contents of this Website are for information purposes only and are not guaranteed to
+                be accurate. Reliance on this Website for medical guidance is strictly prohibited.
+                <!-- built by <a href="https://twitter.com/somto_RM" style="color:rgb(107, 99, 56);" target="_blank">@somto_RM</a>  <a href="https://twitter.com/everybees" style="color:rgb(107, 99, 56);" target="_blank">@everybees</a> and <a href="https://twitter.com/dayoola__" style="color:rgb(107, 99, 56);" target="_blank">@dayoola__</a>   -->
+            </p>
+        </div>
+
+</body>
+
+</html>
